@@ -58,7 +58,7 @@ const CardBack = styled(CardSide)`
 
 const CardTitle = styled.h2`
   position: relative;
-  background: linear-gradient(90deg, #1677ff, #4096ff);
+  background: linear-gradient(90deg, #1677ff, #4096ff, #667eea);
   margin: -${props => props.$isMobile ? "20px" : "28px"};
   margin-bottom: ${props => props.$isMobile ? "24px" : "32px"};
   padding: ${props => props.$isMobile ? "32px 24px 16px" : "40px 32px 20px"};
@@ -67,12 +67,30 @@ const CardTitle = styled.h2`
   font-weight: 700;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 12px;
   letter-spacing: -0.5px;
   color: white;
   border-radius: ${props => props.$isMobile ? "16px 16px 0 0" : "20px 20px 0 0"};
   box-shadow: 0 2px 8px rgba(22, 119, 255, 0.2);
+
+  .title-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress {
+    font-size: ${props => props.$isMobile ? "0.9rem" : "1rem"};
+    font-weight: 500;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: ${props => props.$isMobile ? "4px 8px" : "6px 12px"};
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+  }
 
   &::after {
     content: '';
@@ -228,7 +246,7 @@ const FlipHint = styled.div`
   }
 `;
 
-const Card = ({ question, answer, resetFlip }) => {
+const Card = ({ question, answer, resetFlip, currentProgress, totalQuestions }) => {
   const [flipped, setFlipped] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [cardHeight, setCardHeight] = useState(900);
@@ -261,8 +279,8 @@ const Card = ({ question, answer, resetFlip }) => {
 
   // Reset flip state when resetFlip changes
   useEffect(() => {
-    setFlipped(false);
-  }, [resetFlip]);
+    setFlipped(false);  // 确保卡片回到问题面
+  }, [resetFlip, question]); // 添加 question 作为依赖，在问题改变时也重置
 
   const handleClick = () => {
     setFlipped(!flipped);
@@ -296,8 +314,13 @@ const Card = ({ question, answer, resetFlip }) => {
       <CardInner flipped={flipped}>
         <CardFront $isMobile={isMobile}>
           <CardTitle $isMobile={isMobile}>
-            <FaQuestion />
-            问题
+            <div className="title-left">
+              <FaQuestion />
+              问题
+            </div>
+            <div className="progress">
+              {currentProgress} / {totalQuestions}
+            </div>
           </CardTitle>
           <CardContent $isMobile={isMobile} $isQuestion={true}>{question}</CardContent>
           <FlipHint $isMobile={isMobile}>
@@ -306,8 +329,13 @@ const Card = ({ question, answer, resetFlip }) => {
         </CardFront>
         <CardBack $isMobile={isMobile}>
           <CardTitle $isMobile={isMobile}>
-            <FaLightbulb />
-            答案
+            <div className="title-left">
+              <FaLightbulb />
+              答案
+            </div>
+            <div className="progress">
+              {currentProgress} / {totalQuestions}
+            </div>
           </CardTitle>
           <CardContent 
             ref={answerContentRef}
