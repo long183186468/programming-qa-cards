@@ -1,0 +1,30 @@
+{
+  "name": "programming-qa-cards",
+  "version": "1.0.0",
+  "private": true,
+  "description": "编程学习问答卡片应用",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "@ant-design/cssinjs": "^1.23.0",
+    "antd-mobile": "^5.32.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.4.0",
+    "react-swipeable": "^7.0.1",
+    "styled-components": "^6.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "vite": "^4.4.5"
+  }
+}
