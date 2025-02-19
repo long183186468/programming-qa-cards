@@ -16,7 +16,7 @@ const DeckContainer = styled.div`
 
 const CategoryContainer = styled.div`
   position: fixed;
-  top: ${props => props.$isMobile ? "10px" : "20px"};
+  top: ${props => props.$isMobile ? "80px" : "100px"};
   left: ${props => props.$isMobile ? "10px" : "20px"};
   z-index: 1000;
 `;
